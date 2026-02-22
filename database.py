@@ -10,11 +10,19 @@ def get_connection():
 def create_table():
     conn = get_connection()
     conn.execute("""
+        CREATE TABLE IF NOT EXISTS users(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL
+        )""")
+    conn.execute("""
         CREATE TABLE IF NOT EXISTS students(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
-            course TEXT NOT NULL
-        )
-    """)
+            course TEXT NOT NULL,
+            user_id INTEGER NOT NULL,
+            FOREIGN KEY(user_id) REFERENCES users(id)
+        )""")
+
     conn.commit()
     conn.close()

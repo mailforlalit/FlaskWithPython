@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Page</title>
+</head>
+<body>
+{% extends "base.html" %}
+{% block content %}
+<form method="POST">
+    <input type="text" name="username" placeholder="UserName"
+           class="form-control mb-2" required>
+    <input type="password" name="password" placeholder="Password"
+           class="form-control mb-2" required>
+    <button class="btn btn-primary">Register</button>
+</form>
+<a href="/login" class="btn btn-link mt-3">Already have an account?, Login here</a>
+{% endblock %}
+</body>
+</html>
