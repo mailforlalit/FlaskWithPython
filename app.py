@@ -133,18 +133,24 @@ def updateStudents(id):
         course = request.form["course"]
 
         conn.execute(
-            "UPDATE users SET name = ? , course = ? WHERE id = ?",
+            "UPDATE students SET name = ? , course = ? WHERE id = ?",
             (name, course, id)
         )
 
         conn.commit()
         conn.close()
+    return redirect("/dashboard")
 
-        return redirect("/dashboard")
-    student = conn.execute("SELECT * FROM students where id = ?", (id)).fetchone()
+@app.route("/edit/<int:id>", methods=["GET", "POST"])
+def editStudents(id):
+    print("ID is : ")
+    print(id)
+    conn = get_connection()
+    if 'user_id' not in session:
+        return redirect("/login")
+    student = conn.execute("SELECT * FROM students WHERE id = ?", (id,)).fetchone()
     conn.close()
-    return render_template("edit_student.html", student=student)
-
+    return render_template("edit.html", student=student)
 
 # -------------------------
 #  delete Students (READ)
